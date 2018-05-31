@@ -1,0 +1,10 @@
+G:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.dll
+G:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.pdb
+G:\Github\UnitORM\UnitORM\obj\Debug\UnitORM2.csproj.CoreCompileInputs.cache
+G:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.dll
+G:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.pdb
+F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM2.csproj.CoreCompileInputs.cache
+F:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.dll
+F:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.pdb
+F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.dll
+F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.pdb

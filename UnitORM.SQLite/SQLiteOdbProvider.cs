@@ -25,7 +25,7 @@ namespace UnitORM.Data.SQLite
 
             ColumnAttribute attr = col.Attribute;
 
-            if (attr.IsPrimaryKey)
+            if (attr.IsKey)
             {
                 sql += "INTEGER PRIMARY KEY";
             }
@@ -39,7 +39,7 @@ namespace UnitORM.Data.SQLite
                 sql += " AUTOINCREMENT";
             }
 
-            if (attr.IsNullable && !attr.IsPrimaryKey)
+            if (attr.IsNullable && !attr.IsKey)
             {
                 sql += " NULL";
             }

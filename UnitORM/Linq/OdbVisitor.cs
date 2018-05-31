@@ -501,7 +501,7 @@ namespace UnitORM.Linq
         public void Clear()
         {
             this.Parameters.Clear();
-            this._sb.Length = 0;
+            this._sb.Clear();
             
             this._index = 0;
             this._limit = "";

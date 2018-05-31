@@ -37,7 +37,7 @@ namespace UnitORM.Data
 
         public virtual void SetValue(object instance, object value)
         {
-            if (this.Attribute.IsPrimaryKey)
+            if (this.Attribute.IsKey)
                 value = Convert.ToInt32(value);
  
             if (this.Property.PropertyType.IsEnum)

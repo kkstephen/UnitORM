@@ -12,7 +12,7 @@ namespace UnitORM.Data
 
             foreach (OdbColumn col in GetColumns(type))
             {
-                if (col.Attribute.IsPrimaryKey)
+                if (col.Attribute.IsKey)
                     table.PK = col.Name;
 
                 table.Columns.Add(col);
@@ -49,45 +49,34 @@ namespace UnitORM.Data
             {
                 colAttr = new ColumnAttribute();
             }
-
-            if (!IsGenericList(ptyInfo.PropertyType))
-            {
-                if (ptyInfo.PropertyType.IsClass)
-                {
-                    if (!colAttr.IsForeignKey)
-                    {
-                        //ignore all class
-                        if (ptyInfo.PropertyType != typeof(string))
-                        {
-                            colAttr.NotMapped = true;
-                        }
-                        else
-                        {
-                            if (colAttr.Length == 0)
-                                colAttr.Length = 255;
-                        }
-                    }
-                }               
+            
+            if (ptyInfo.PropertyType == typeof(string))
+            { 
+                if (colAttr.Length == 0)
+                    colAttr.Length = 255;
             }
             else
             {
-                colAttr.IsList = true;
-            }
+                if (OdbType.OdbEntity.IsAssignableFrom(ptyInfo.PropertyType))
+                {
+                    colAttr.IsMapped = true;
+                }
+
+                if (IsList(ptyInfo.PropertyType))
+                {
+                    colAttr.IsIgnore = true;
+                }
+            }                
        
             if (ptyInfo.Name == "Id")
             {
-                colAttr.IsPrimaryKey = true;
+                colAttr.IsKey = true;
                 colAttr.IsAuto = true;
                 colAttr.IsNullable = false;
             }
 
             return colAttr;
-        }
-
-        public static bool IsGenericList(Type type)
-        {             
-            return (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IList<>)));
-        }
+        } 
 
         public static IEnumerable<OdbColumn> GetColumns(Type type)
         {
@@ -97,11 +86,16 @@ namespace UnitORM.Data
             { 
                 ColumnAttribute colAttr = GetColAttribute(propes[i]);
 
-                if (!colAttr.NotMapped)
+                if (!colAttr.IsIgnore)
                 {
                     yield return new OdbColumn(propes[i], colAttr); 
                 }
             }
-        } 
+        }
+
+        public static bool IsList(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>);
+        }
     }
 }

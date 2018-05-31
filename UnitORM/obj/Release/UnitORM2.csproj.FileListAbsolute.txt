@@ -1,0 +1,5 @@
+G:\Github\UnitORM\UnitORM\bin\Release\UnitORM.dll
+G:\Github\UnitORM\UnitORM\bin\Release\UnitORM.pdb
+G:\Github\UnitORM\UnitORM\obj\Release\UnitORM2.csproj.CoreCompileInputs.cache
+G:\Github\UnitORM\UnitORM\obj\Release\UnitORM.dll
+G:\Github\UnitORM\UnitORM\obj\Release\UnitORM.pdb

@@ -96,7 +96,7 @@ namespace UnitORM.Data
             {
                 var col = Columns[i];
               
-                if (!col.Attribute.IsForeignKey)
+                if (!col.Attribute.IsMapped)
                 {
                     var value = this.GetValue(this.Columns[i].Name);
 

@@ -5,9 +5,7 @@ using System.Collections.Generic;
 namespace UnitORM.Data
 {
     public abstract class OdbContext : IDbContext
-    {
-        public int Depth { get; set; }
-
+    { 
         public IDbConnection Connection { get; set; }
         public IDbTransaction Transaction { get; set; }
   
@@ -32,9 +30,7 @@ namespace UnitORM.Data
             if (connection == null)
                 throw new ArgumentNullException("connection");
 
-            this.Connection = connection;
- 
-            this.Depth = 1;
+            this.Connection = connection;  
         }
  
         protected virtual void Dispose(bool disposing)
@@ -156,37 +152,18 @@ namespace UnitORM.Data
         private void Create(Type type)
         { 
             List<string> cols = new List<string>();
-
-            bool keyExist = false;
-
+ 
             foreach (OdbColumn col in OdbMapping.GetColumns(type))
             {
-                if (col.Attribute.IsList)
-                {
-                    continue;                    
-                }
-                             
-                if (col.Attribute.IsPrimaryKey)
-                {
-                    keyExist = true;
-                }
-
-                if (!col.Attribute.IsForeignKey)
-                {
-                    cols.Add(this.Provider.CreateColumn(col));
-                }
+                if (col.Attribute.IsMapped)
+                    this.Create(col.GetMapType());
+                              
+                cols.Add(this.Provider.CreateColumn(col));                
             }
+            
+            string table = OdbMapping.GetTableName(type);
 
-            if (keyExist)
-            {
-                string table = OdbMapping.GetTableName(type);
-
-                this.Create(table, cols.ToArray());
-            }
-            else
-            {
-                throw new Exception("No key column");
-            }
+            this.Create(table, cols.ToArray());           
         }
     
         /// <summary>
@@ -206,7 +183,15 @@ namespace UnitORM.Data
         }
 
         private void Drop(Type type)
-        { 
+        {
+            foreach (OdbColumn col in OdbMapping.GetColumns(type))
+            {
+                if (col.Attribute.IsMapped)
+                {
+                    this.Drop(col.GetMapType());
+                }
+            }
+
             string table = OdbMapping.GetTableName(type);
 
             this.Drop(table);
@@ -222,8 +207,8 @@ namespace UnitORM.Data
             using (var et = new GenericEnumerator<T>(q.Read()))
             {
                 return Collection(et);
-            }            
-        } 
+            }
+        }
  
         public virtual T ExecuteSingle<T>(IQuery q)
         {
@@ -264,9 +249,12 @@ namespace UnitORM.Data
             {
                 ColumnAttribute attr = col.Attribute;
 
-                if (!attr.IsAuto && !attr.IsForeignKey)                    
-                { 
+                if (!attr.IsAuto)               
+                {
                     object b = col.GetValue(t);
+
+                    if (attr.IsMapped && b != null)
+                        b = (b as IEntity).Id;
 
                     string pa = query.SetParams(b);
 
@@ -274,7 +262,7 @@ namespace UnitORM.Data
                     cols.Add("[" + col.Name + "]");                    
                 }
 
-                if (attr.IsPrimaryKey)
+                if (attr.IsKey)
                 {
                     query.Key = col.Name;                    
                 }
@@ -312,21 +300,21 @@ namespace UnitORM.Data
  
             foreach (OdbColumn col in OdbMapping.GetColumns(type))
             {
-                ColumnAttribute attr = col.Attribute;
+                ColumnAttribute attr = col.Attribute; 
 
-                object b = col.GetValue(t);
+                object b = col.GetValue(t); 
 
                 if (!attr.IsAuto)
-                {                    
-                    if (!attr.IsForeignKey)
-                    {
-                        string pa = query.SetParams(b);
+                {
+                    if (attr.IsMapped && b != null)
+                        b = (b as IEntity).Id;
 
-                        cols.Add("[" + col.Name + "]" + "=" + pa);
-                    }
+                    string pa = query.SetParams(b);
+
+                    cols.Add("[" + col.Name + "]" + "=" + pa);                   
                 }      
                 
-                if (attr.IsPrimaryKey)
+                if (attr.IsKey)
                 {
                     query.Key = col.Name;                   
                     value = b;

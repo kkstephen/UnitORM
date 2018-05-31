@@ -1,0 +1,10 @@
+G:\Github\UnitORM\UnitORM.SQLite\bin\Release\UnitORM.SQLite.dll
+G:\Github\UnitORM\UnitORM.SQLite\bin\Release\UnitORM.SQLite.pdb
+G:\Github\UnitORM\UnitORM.SQLite\bin\Release\System.Data.SQLite.dll
+G:\Github\UnitORM\UnitORM.SQLite\bin\Release\UnitORM.dll
+G:\Github\UnitORM\UnitORM.SQLite\bin\Release\UnitORM.pdb
+G:\Github\UnitORM\UnitORM.SQLite\obj\Release\UnitORM.SQLite.csprojResolveAssemblyReference.cache
+G:\Github\UnitORM\UnitORM.SQLite\obj\Release\UnitORM.SQLite.csproj.CoreCompileInputs.cache
+G:\Github\UnitORM\UnitORM.SQLite\obj\Release\UnitORM.SQLite.csproj.CopyComplete
+G:\Github\UnitORM\UnitORM.SQLite\obj\Release\UnitORM.SQLite.dll
+G:\Github\UnitORM\UnitORM.SQLite\obj\Release\UnitORM.SQLite.pdb

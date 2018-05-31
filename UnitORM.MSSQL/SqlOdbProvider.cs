@@ -87,7 +87,7 @@ namespace UnitORM.Data.MSSQL
 
             string col = "[" + column.Name + "] ";
 
-            if (attr.IsPrimaryKey)
+            if (attr.IsKey)
             {
                 col += "INT PRIMARY KEY";
             }

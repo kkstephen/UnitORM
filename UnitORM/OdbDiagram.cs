@@ -56,7 +56,7 @@ namespace UnitORM.Data
         { 
             foreach (OdbColumn col in node.Columns)
             {
-                if (col.Attribute.IsForeignKey)
+                if (col.Attribute.IsMapped)
                 {
                     OdbTable tableNode = OdbMapping.CreateTable(col.GetMapType());
 
@@ -66,8 +66,8 @@ namespace UnitORM.Data
 
                     this._nodes.Add(tableNode.Name, tableNode);
 
-                    this.findNodes(tableNode);           
-                }                      
+                    this.findNodes(tableNode);
+                }
             }
         }
                       

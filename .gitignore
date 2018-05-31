@@ -1,0 +1,15 @@
+## generic files to ignore
+ 
+*.dll
+*.pdb
+*.exe
+
+## folder
+
+lib
+MMail.DNS/bin
+MMail.DNS/obj
+MMail.Net/bin
+MMail.Net/obj
+MMail.Win/bin
+MMail.Win/obj

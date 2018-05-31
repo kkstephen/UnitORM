@@ -26,12 +26,12 @@ namespace UnitORM.Data
                 //Get column value
                 object value = this.GetValue(table.Alias + "." + col.Name);
 
-                if (!col.Attribute.IsForeignKey)
+                if (!col.Attribute.IsMapped)
                 {
                     col.SetValue(instance, value);
                 }
                 else if (value != null)
-                {                    
+                {
                     //Get FK value
                     Type tp = col.GetMapType();
 

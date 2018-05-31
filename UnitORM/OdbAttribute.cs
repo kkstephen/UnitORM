@@ -9,12 +9,11 @@ namespace UnitORM
         public string Name { get; set; }
         public int Length { get; set; }
         public bool IsAuto { get; set; }
+        public bool IsKey { get; set; }
+        public bool IsMapped { get; set; }
+        public bool IsIgnore { get; set; }
         public bool IsNullable { get; set; }
-        public bool NotMapped { get; set; }
-        public bool IsPrimaryKey { get; set; }
-        public bool IsForeignKey { get; set; }
-        public bool IsList { get; set; }
-     
+             
         public ColumnAttribute() : this("")
         {
         }
@@ -29,11 +28,11 @@ namespace UnitORM
             Length = size;
 
             IsAuto = false;
-            IsNullable = true;
-            NotMapped = false;
-            IsPrimaryKey = false;
-            IsForeignKey = false;
-            IsList = false;
+            IsNullable = true;            
+            IsKey = false;
+            IsMapped = false;
+
+            IsIgnore = false;
         }
     }
 
@@ -43,19 +42,19 @@ namespace UnitORM
     { 
         public KeyAttribute(string name = "") : base(name)
         {           
-            IsAuto = true;
-            IsNullable = false;     
-            IsPrimaryKey = true;           
+            IsAuto = true;              
+            IsKey = true;
+            IsNullable = false;   
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
-    public class MappedAttribute : ColumnAttribute
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field,
+                  Inherited = false, AllowMultiple = false)]
+    public class IgnoreAttribute : ColumnAttribute
     {
-        public MappedAttribute()
+        public IgnoreAttribute(string name = "") : base(name)
         {
-            this.IsForeignKey = true;
-            this.IsNullable = false;
+            IsIgnore = true;
         }
     }
 

@@ -53,13 +53,13 @@ namespace UnitORM.Data
             if (unit == null)
                 throw new ArgumentNullException("UnitOfWork");
 
-            this.Unit = unit;            
-        }  
-        #region CURD     
-        
+            this.Unit = unit;
+        }
+
+        #region CURD             
         public virtual T Get(int id)
         { 
-            var table = this.Diagram.GetTable(typeof(T)); 
+            var table = this.Diagram.GetTable(typeof(T));
 
             var q = this.Entities.Where(table.Alias + "." + table.PK).Eq(id).Take(1);
 
@@ -68,27 +68,29 @@ namespace UnitORM.Data
                 var list = OdbContext.Collection(et);
 
                 return list.Count > 0 ? list[0] : default(T);
-            } 
-        } 
+            }
+        }
 
-        public void Add(T t)
+        public virtual void Add(T t)
         {
             this.Unit.RegisterAdd(t);
         }
 
-        public int Store(T t)
+        public virtual int Store(T t)
         {
-            return this.Unit.Context.ExecuteReturnId(t);
+            t.Id = this.Unit.Context.ExecuteReturnId(t);
+
+            return t.Id;
         }
 
-        public void Update(T t)
+        public virtual void Update(T t)
         {
             this.Unit.RegisterUpdate(t);
         }
         
-        public virtual void Delete(int id)
+        public virtual void Delete(T t)
         {
-            this.Unit.RegisterDelete<T>(id);
+            this.Unit.RegisterDelete<T>(t.Id);
         }
         
         public virtual int Count()

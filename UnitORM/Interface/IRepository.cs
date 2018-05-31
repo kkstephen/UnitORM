@@ -11,10 +11,11 @@ namespace UnitORM.Data
     public interface IRepository<T> : IRepository
     { 
         T Get(int id);
-    
+        int Store(T t);
+
         void Add(T t);
         void Update(T t);
-        void Delete(int id);
+        void Delete(T t); 
 
         IList<T> ToList();
 
