@@ -33,23 +33,17 @@ namespace UnitTest
         [TestMethod]
         public void TestStore()
         {
-            var addr = new Address() { Flat = "15", Region = "MK", Street = "Choi Street" };
-            
-            unit.Address.Store(addr);
-
-            var student = unit.Students.Get(1);
-
-            student.Address = addr;
-
-            unit.RegisterUpdate(student);
-
+            var addr = new Address() { Flat = "10", Region = "TKO", Street = "Tam Street" };
+ 
+            unit.RegisterStore(addr);
+   
             Assert.IsTrue(addr.Id > 0);
         }
 
         [TestMethod]
         public void TestUpdate()
         {
-            Student student = unit.Students.Get(1);
+            Student student = unit.Students.Get(2);
 
             student.Birthday = DateTime.Now;
 

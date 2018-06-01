@@ -8,3 +8,4 @@ F:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.dll
 F:\Github\UnitORM\UnitORM\bin\Debug\UnitORM.pdb
 F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.dll
 F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM.pdb
+F:\Github\UnitORM\UnitORM\obj\Debug\UnitORM2.csprojAssemblyReference.cache

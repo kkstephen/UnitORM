@@ -86,11 +86,26 @@ namespace UnitORM.Data
             this.RegisterTask(() =>
             {
                 this.Context.ExecuteInsert(t);
-            });            
-        } 
+            });
+        }
 
-        public void RegisterUpdate<T>(T t) 
-        {            
+        public void RegisterStore<T>(T t) where T : IEntity
+        {  
+            this.RegisterTask(() =>
+            {
+                if (t.Id == 0)
+                {
+                    t.Id = this.Context.ExecuteReturnId(t);
+                }
+                else
+                {
+                    this.Context.ExecuteUpdate(t);
+                }                        
+            });
+        }
+            
+        public void RegisterUpdate<T>(T t)
+        {
             this.RegisterTask(() =>
             {
                 this.Context.ExecuteUpdate(t);

@@ -6,10 +6,4 @@
 
 ## folder
 
-lib
-MMail.DNS/bin
-MMail.DNS/obj
-MMail.Net/bin
-MMail.Net/obj
-MMail.Win/bin
-MMail.Win/obj
+/packages/MSTest.TestFramework.1.2.1/lib

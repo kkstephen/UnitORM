@@ -78,7 +78,7 @@ namespace UnitORM.Data
 
         public virtual int Store(T t)
         {
-            t.Id = this.Unit.Context.ExecuteReturnId(t);
+            this.Unit.RegisterStore(t);
 
             return t.Id;
         }

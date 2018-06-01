@@ -19,6 +19,8 @@ namespace UnitORM.Data
         void RegisterUpdate<T>(T t);  
         void RegisterDelete<T>(int id);
 
+        void RegisterStore<T>(T t) where T : IEntity;
+
         void RegisterTask(Action action);
 
         void Commit();
